@@ -1,0 +1,16 @@
+
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gcp:
+      project-id: proyectostefhanyalfonso
+      credentials:
+        location: file:/C:/api-productos-firebase/api-productos-firebase/credenciales/service-account.json
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info, mappings

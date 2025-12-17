@@ -1,0 +1,103 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Spring Boot 3.5.x (Java 17+ como mínimo) -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.5.8</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.productosfirebase</groupId>
+  <artifactId>api-productos-firebase</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>api-productos-firebase</name>
+  <description>API Productos con Spring Boot WebFlux + Spring Data Firestore (Firebase)</description>
+
+  <properties>
+    <java.version>25</java.version>
+    <!-- BOM de Spring Cloud GCP para alinear versiones de los módulos GCP -->
+    <spring-cloud-gcp.version>7.4.1</spring-cloud-gcp.version>
+  </properties>
+
+  <!-- BOM: gestiona versiones compatibles de todos los artefactos Spring Cloud GCP -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>spring-cloud-gcp-dependencies</artifactId>
+        <version>${spring-cloud-gcp.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- REACTIVO: WebFlux (controladores con Mono/Flux) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+
+    <!-- Validación (Bean Validation/Jakarta) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <!-- Firestore (Spring Data Firestore - ODM). Sin versión: la provee el BOM de GCP -->
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>spring-cloud-gcp-starter-data-firestore</artifactId>
+    </dependency>
+
+    <!-- OpenAPI/Swagger para WebFlux -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+      <version>2.6.0</version>
+    </dependency>
+
+    <!-- (Opcional) Actuator para ver health y mappings -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <!-- Pruebas -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Empaquetado Spring Boot -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <!-- Con JDK 25, compilar a nivel de release 17 (mínimo soportado por Spring Boot 3.x) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+       </plugins>
+  </build>
+
+</project>
